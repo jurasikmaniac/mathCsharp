@@ -38,10 +38,12 @@ namespace Integration
             h = (b - a) / n; //Шаг сетки
             result = 0;
 
-            for (i = 1; i <= n; i++)
+            for (i = 1; i < n; i++)
             {
-                result += Function(a + h * i - h / 2,func); //Вычисляем в средней точке и добавляем в сумму
+                result += Function(a + h * i - h / 2, func); //Вычисляем в средней точке и добавляем в сумму
             }
+            
+            
             result *= h;
 
             return result;
