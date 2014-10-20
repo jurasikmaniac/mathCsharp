@@ -28,5 +28,37 @@ namespace Drawer
             }
             return lagrange_pol;
         }
+
+        public static double NewtonInterpolator(double t, PointPairList points)
+        {
+            double F, LN, XX, X = 1;
+            int i, j, k;
+            if (points.Count==0)
+            {
+                return 0;
+            }
+            for (i = 1, LN = points[0].Y; i < points.Count; i++)
+            {
+                X *= (t - points[i - 1].X);
+                for (j = 0, F = 0; j <= i; j++)
+                {
+                    for (k = 0, XX = 1; k <= i; k++)
+                    {
+                        if (k != j)
+                            XX *= points[j].X - points[k].X;
+                    }
+                    F += points[j].Y / XX;
+                }
+                LN += X * F;
+            }
+            return LN;
+        }
     }
+
+    
+
+        
+        
+        
+    
 }

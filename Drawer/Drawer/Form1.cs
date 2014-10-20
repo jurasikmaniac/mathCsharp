@@ -78,8 +78,8 @@ namespace Drawer
             // Создадим кривую с названием "Sinc",
             // которая будет рисоваться голубым цветом (Color.Blue),
             // Опорные точки выделяться не будут (SymbolType.None)
-            LineItem myCurve = pane.AddCurve("Sinc", inputPoints, Color.Blue, SymbolType.None);
-            LineItem selectedPoint = pane.AddCurve("Sinc", selectedPoints, Color.Red, SymbolType.Circle);
+            LineItem myCurve = pane.AddCurve("Graph", inputPoints, Color.Blue, SymbolType.None);
+            LineItem selectedPoint = pane.AddCurve("Selected point", selectedPoints, Color.Red, SymbolType.Circle);
             selectedPoint.Line.IsVisible = false;
             selectedPoint.Symbol.Fill.Color = Color.Red;
             selectedPoint.Symbol.Fill.Type = FillType.Solid;
@@ -87,7 +87,7 @@ namespace Drawer
 
             if (lagrangeCheckBox.Checked)
             {
-                LineItem lagrangeCurve = pane.AddCurve("Sinc", lagrangePoints, Color.Olive, SymbolType.None);
+                LineItem lagrangeCurve = pane.AddCurve("Lagrange", lagrangePoints, Color.Olive, SymbolType.None);
             }
 
             // Включим отображение сетки
@@ -102,7 +102,7 @@ namespace Drawer
             double step = (pane.XAxis.Scale.Max - pane.XAxis.Scale.Min) / 500;
             for (double i = pane.XAxis.Scale.Min; i < pane.XAxis.Scale.Max; i+=step)
             {
-                lagrangePoints.Add(i,Interpolator.lagrange(i,inputPoints));
+                lagrangePoints.Add(i,Interpolator.NewtonInterpolator(i,inputPoints));
             }
         }
 
