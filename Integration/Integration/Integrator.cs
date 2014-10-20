@@ -21,7 +21,10 @@ namespace Integration
             double x2 = x1 + step;
             for (int i = 1; i < n; i++)
             {
-             //gsg   
+                result += (Function(x1, Func) + Function(x2, Func))*(x2-x1) / 2.0;
+                x1 = x2;
+                x2 += step;
+             
             }
             return result;
         }
