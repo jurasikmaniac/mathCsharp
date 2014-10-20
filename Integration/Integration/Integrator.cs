@@ -21,7 +21,7 @@ namespace Integration
             double x2 = x1 + step;
             for (int i = 1; i < n; i++)
             {
-                
+             //gsg   
             }
             return result;
         }
