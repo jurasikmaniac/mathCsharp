@@ -8,5 +8,9 @@ namespace Integration
 {
     public static class Integrator
     {
+        public static double Rectangle() 
+        {
+            return 0;
+        }
     }
 }
