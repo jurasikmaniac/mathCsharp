@@ -17,14 +17,16 @@ namespace Integration
         {
             double result = 0d;
             double step = (b - a) / n;
-            double x = a+step;
+            double x1 = a;
+            double x2 = x1 + step;
             for (int i = 1; i < n; i++)
             {
-                result += Function(x, Func);
-                x += step;
+                result += (Function(x1, Func) + Function(x2, Func))*(x2-x1) / 2.0;
+                x1 = x2;
+                x2 += step;
              
             }
-            return (2.0 * result + Function(a, Func) + Function(b, Func)) * step / 2.0;
+            return result;
         }
         
         public static double Rectangle(string func, double a, double b, int n)
