@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integration
 {
-    class Integrator
+    public static class Integrator
     {
     }
 }
