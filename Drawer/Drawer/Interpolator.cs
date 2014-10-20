@@ -33,7 +33,7 @@ namespace Drawer
         {
             double F, LN, XX, X = 1;
             int i, j, k;
-            if (points.Count==0)
+            if (points.Count == 0)
             {
                 return 0;
             }
@@ -53,12 +53,41 @@ namespace Drawer
             }
             return LN;
         }
+        public static double Newton(double t, PointPairList points)
+        {
+
+            if (points.Count == 0)
+            {
+                return 0;
+            } 
+            double res = points[0].Y, F, den;
+            int i, j, k;
+            for (i = 1; i < points.Count; i++)
+            {
+                F = 0;
+                for (j = 0; j <= i; j++)
+                {//следующее слагаемое полинома
+                    den = 1;
+                    //считаем знаменатель разделенной разности
+                    for (k = 0; k <= i; k++)
+                    {
+                        if (k != j) den *= (points[j].X - points[k].X);
+                    }
+                    //считаем разделенную разность
+                    F += points[j].Y / den;
+                }
+                //домножаем разделенную разность на скобки (x-x[0])...(x-x[i-1])
+                for (k = 0; k < i; k++) F *= (t - points[k].X);
+                res += F;//полином
+            }
+            return res;
+        }
     }
 
-    
 
-        
-        
-        
-    
+
+
+
+
+
 }

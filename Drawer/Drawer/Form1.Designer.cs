@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lagrangeCheckBox = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.newtonCheckBox = new System.Windows.Forms.CheckBox();
             this.zedGraph = new ZedGraph.ZedGraphControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pointsDataGridView = new System.Windows.Forms.DataGridView();
@@ -38,6 +38,9 @@
             this.xColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.yColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addPointCheckBox = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pointsDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -53,15 +56,16 @@
             this.lagrangeCheckBox.UseVisualStyleBackColor = true;
             this.lagrangeCheckBox.CheckedChanged += new System.EventHandler(this.lagrangeCheckBox_CheckedChanged);
             // 
-            // checkBox2
+            // newtonCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(6, 42);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(65, 17);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Ньютон";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.newtonCheckBox.AutoSize = true;
+            this.newtonCheckBox.Location = new System.Drawing.Point(6, 42);
+            this.newtonCheckBox.Name = "newtonCheckBox";
+            this.newtonCheckBox.Size = new System.Drawing.Size(65, 17);
+            this.newtonCheckBox.TabIndex = 2;
+            this.newtonCheckBox.Text = "Ньютон";
+            this.newtonCheckBox.UseVisualStyleBackColor = true;
+            this.newtonCheckBox.CheckedChanged += new System.EventHandler(this.newtonCheckBox_CheckedChanged);
             // 
             // zedGraph
             // 
@@ -81,7 +85,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.newtonCheckBox);
             this.groupBox1.Controls.Add(this.lagrangeCheckBox);
             this.groupBox1.Location = new System.Drawing.Point(584, 12);
             this.groupBox1.Name = "groupBox1";
@@ -102,7 +106,7 @@
             this.xColumn,
             this.yColumn});
             this.pointsDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.pointsDataGridView.Location = new System.Drawing.Point(585, 94);
+            this.pointsDataGridView.Location = new System.Drawing.Point(584, 115);
             this.pointsDataGridView.Name = "pointsDataGridView";
             this.pointsDataGridView.ReadOnly = true;
             this.pointsDataGridView.RowHeadersVisible = false;
@@ -141,7 +145,7 @@
             // addPointCheckBox
             // 
             this.addPointCheckBox.AutoSize = true;
-            this.addPointCheckBox.Location = new System.Drawing.Point(585, 251);
+            this.addPointCheckBox.Location = new System.Drawing.Point(584, 272);
             this.addPointCheckBox.Name = "addPointCheckBox";
             this.addPointCheckBox.Size = new System.Drawing.Size(160, 17);
             this.addPointCheckBox.TabIndex = 7;
@@ -149,11 +153,40 @@
             this.addPointCheckBox.UseVisualStyleBackColor = true;
             this.addPointCheckBox.CheckedChanged += new System.EventHandler(this.addPointCheckBox_CheckedChanged);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(741, 86);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(584, 88);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(71, 20);
+            this.textBox1.TabIndex = 9;
+            this.textBox1.Text = "0";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(662, 88);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(73, 20);
+            this.textBox2.TabIndex = 10;
+            this.textBox2.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(825, 403);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.addPointCheckBox);
             this.Controls.Add(this.pointsDataGridView);
             this.Controls.Add(this.groupBox1);
@@ -172,7 +205,7 @@
         #endregion
 
         private System.Windows.Forms.CheckBox lagrangeCheckBox;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox newtonCheckBox;
         private ZedGraph.ZedGraphControl zedGraph;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView pointsDataGridView;
@@ -180,6 +213,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn xColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn yColumn;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
