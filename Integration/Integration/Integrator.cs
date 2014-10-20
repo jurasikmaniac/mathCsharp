@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Integration
@@ -41,11 +42,30 @@ namespace Integration
             {
                 result += Function(a + h * i - h / 2, func); //Вычисляем в средней точке и добавляем в сумму
             }
-            
+            //Parallel.For<double>(1, n-1, () => 0.0, (j, loop, subtotal) =>
+            //{
+            //    subtotal += Function(a + h * j - h / 2, func);
+            //    return subtotal;
+            //},
+            //(x) => Add(ref result, x)
+            //);
             
             result *= h;
 
             return result;
+        }
+
+        public static double Add(ref double location1, double value)
+        {
+            double newCurrentValue = 0;
+            while (true)
+            {
+                double currentValue = newCurrentValue;
+                double newValue = currentValue + value;
+                newCurrentValue = Interlocked.CompareExchange(ref location1, newValue, currentValue);
+                if (newCurrentValue == currentValue)
+                    return newValue;
+            }
         }
 
         public static double Function(double x, string func)
