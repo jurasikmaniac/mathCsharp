@@ -12,5 +12,17 @@ namespace Integration
         {
             return 0;
         }
+        public static double Tropez(string Func, double a, double b, int n)
+        {
+            double result = 0d;
+            double step = (b - a) / n;
+            double x1 = a;
+            double x2 = x1 + step;
+            for (int i = 1; i < n; i++)
+            {
+                
+            }
+            return result;
+        }
     }
 }
