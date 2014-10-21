@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Integration
 {
-    public static class Integrator
+    public class Integrator
     {
-        public static double Rectangle() 
-        {
-            return 0;
+        public Integrator() 
+        { 
+
         }
-        public static double Tropez(string Func, double a, double b, int n)
+        public double Tropez(string Func, double a, double b, int n)
         {
             double result = 0d;
             double step = (b - a) / n;
@@ -29,7 +29,7 @@ namespace Integration
 
         }
         
-        public static double Rectangle(string func, double a, double b, int n)
+        public double Rectangle(string func, double a, double b, int n)
         {
             double result, h;
             int i;
@@ -53,6 +53,22 @@ namespace Integration
             result *= h;
 
             return result;
+        }
+        public double Simp(string func, double a, double b, int n)
+        {
+            double x, h, s;           
+
+            h = (b - a) / n;
+            s = 0; x = a + h;
+            while (x < b)
+            {
+                s = s + 4 * Function(x,func);
+                x = x + h;
+                s = s + 2 * Function(x, func); ;
+                x = x + h;
+            }
+            s = h / 3 * (s + Function(a,func) - Function(b,func));
+            return s;
         }
 
         public static double Add(ref double location1, double value)
