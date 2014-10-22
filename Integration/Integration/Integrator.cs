@@ -14,7 +14,7 @@ namespace Integration
         { 
 
         }
-        public double TropezWithAnEpsilon(string Func, double a, double b, double epsilon)
+        public ResultAndError TropezWithAnEpsilon(string Func, double a, double b, double epsilon)
         {
             int n = 1;
             ResultAndError rae = TropezRunge(Func, a, b, n);
@@ -25,11 +25,11 @@ namespace Integration
                 rae = TropezRunge(Func, a, b, n);
                 if (rae.error>=prevError)
                 {
-                    return Double.NaN;
+                    return new ResultAndError(Double.NaN, Double.NaN);
                 }
                 prevError = rae.error;
             }
-            return rae.result;
+            return rae;
         }
         public ResultAndError TropezRunge(string Func, double a, double b, int n)
         {
@@ -37,6 +37,55 @@ namespace Integration
             double r2 = Tropez(Func, a, b, n*2);
             return new ResultAndError(r1, Math.Abs(r2 - r1) / 3d);
         }
+
+        public ResultAndError RectangleWithAnEpsilon(string Func, double a, double b, double epsilon)
+        {
+            int n = 1;
+            ResultAndError rae = RectangleRunge(Func, a, b, n);
+            double prevError = rae.error;
+            while (rae.error > epsilon)
+            {
+                n *= 2;
+                rae = RectangleRunge(Func, a, b, n);
+                //if (rae.error >= prevError)
+                //{
+                //    return new ResultAndError(Double.NaN,Double.NaN);
+                //}
+                prevError = rae.error;
+            }
+            return rae;
+        }
+        public ResultAndError RectangleRunge(string Func, double a, double b, int n)
+        {
+            double r1 = Rectangle(Func, a, b, n);
+            double r2 = Rectangle(Func, a, b, n * 2);
+            return new ResultAndError(r1, Math.Abs(r2 - r1) / 3d);
+        }
+
+        public ResultAndError SimpWithAnEpsilon(string Func, double a, double b, double epsilon)
+        {
+            int n = 1;
+            ResultAndError rae = SimpRunge(Func, a, b, n);
+            double prevError = rae.error;
+            while (rae.error > epsilon)
+            {
+                n *= 2;
+                rae = SimpRunge(Func, a, b, n);
+                if (rae.error >= prevError)
+                {
+                    return new ResultAndError(Double.NaN, Double.NaN);
+                }
+                prevError = rae.error;
+            }
+            return rae;
+        }
+        public ResultAndError SimpRunge(string Func, double a, double b, int n)
+        {
+            double r1 = Simp(Func, a, b, n);
+            double r2 = Simp(Func, a, b, n * 2);
+            return new ResultAndError(r1, Math.Abs(r2 - r1) / 3d);
+        }
+
         public double Tropez(string Func, double a, double b, int n)
         {
             double result = 0d;
