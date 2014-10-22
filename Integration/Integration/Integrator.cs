@@ -14,6 +14,29 @@ namespace Integration
         { 
 
         }
+        public double TropezWithAnEpsilon(string Func, double a, double b, double epsilon)
+        {
+            int n = 1;
+            ResultAndError rae = TropezRunge(Func, a, b, n);
+            double prevError = rae.error;
+            while (rae.error>epsilon)
+            {
+                n*=2;
+                rae = TropezRunge(Func, a, b, n);
+                if (rae.error>=prevError)
+                {
+                    return Double.NaN;
+                }
+                prevError = rae.error;
+            }
+            return rae.result;
+        }
+        public ResultAndError TropezRunge(string Func, double a, double b, int n)
+        {
+            double r1 = Tropez(Func, a, b, n);
+            double r2 = Tropez(Func, a, b, n*2);
+            return new ResultAndError(r1, Math.Abs(r2 - r1) / 3d);
+        }
         public double Tropez(string Func, double a, double b, int n)
         {
             double result = 0d;
