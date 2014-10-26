@@ -12,20 +12,23 @@ namespace DiffApp
 {
     public partial class ResultForm : Form
     {
-        public ResultForm(ref double[] result)
+        public ResultForm(ref List<ResultRow> result)
         {
             InitializeComponent();
             ShowResult(result);
         }
-        public void ShowResult(double[] result)
+        public void ShowResult(List<ResultRow> result)
         {
-            resultDataGridView.Columns.Clear();
-            resultDataGridView.Rows.Clear();
+            resultDataGridView.Columns.Add("xCoumn", "X");
 
-            resultDataGridView.Columns.Add("x", "x");
-            for (int i = 0; i < result.Length; i++)
+            for (int i = 0; i < result[0].Y.Length; i++)
             {
-                resultDataGridView.Columns.Add("y" + i, "y" + i);
+                resultDataGridView.Columns.Add("yCoumn"+i, "Y"+i);
+            }
+
+            foreach (var r in result)
+            {
+                resultDataGridView.Rows.Add(r.toStringArray());
             }
         }
 

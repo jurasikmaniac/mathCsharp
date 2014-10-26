@@ -1,5 +1,6 @@
 ﻿using info.lundin.math;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,7 +23,6 @@ namespace DiffApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //asd
             valuePanel.Controls.Add(new ValueY("y" + Convert.ToString(valuePanel.Controls.Count)));
         }
 
@@ -60,17 +60,21 @@ namespace DiffApp
             }
 
             RK4.SetInit(Convert.ToDouble(textBoxA.Text), Y0);
-
+            List<ResultRow> results = new List<ResultRow>();
             while (RK4.GetCurrent() < Convert.ToDouble(textBoxB.Text)) // решаем до 10
             {
-                Console.WriteLine("X = {0:F5}; Y = {1:F8}; ", RK4.GetCurrent(), RK4.Y[0]); // вывести t, y, y'                
+                Console.WriteLine("X = {0:F5}; Y = {1:F8}; ", RK4.GetCurrent(), RK4.Y[0]); // вывести t, y, y'    
+                results.Add(new ResultRow(RK4.GetCurrent(), RK4.Y));
+
                 RK4.NextStep(Convert.ToDouble(textBoxH.Text)); // расчитать на следующем шаге, шаг интегрирования dt=0.01                
             }
-            Form result = new ResultForm( ref RK4.Y);            
+            Form result = new ResultForm(ref results);            
             result.ShowDialog();
             Console.ReadLine();
         }
+        
     }
+    
 
     public class TMyRK : TRungeKutta
     {

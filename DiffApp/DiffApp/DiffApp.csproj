@@ -64,6 +64,7 @@
     <Compile Include="ResultForm.Designer.cs">
       <DependentUpon>ResultForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ResultRow.cs" />
     <Compile Include="TRungeKutta.cs" />
     <Compile Include="ValueY.cs">
       <SubType>UserControl</SubType>
