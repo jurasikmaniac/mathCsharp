@@ -36,6 +36,7 @@ namespace DiffApp
         private void button1_Click(object sender, EventArgs e)
         {
             TMyRK RK4 = new TMyRK(valuePanel.Controls.Count, textBoxFunc.Text);
+            TMyRK RK4_doublepenetration = new TMyRK(valuePanel.Controls.Count, textBoxFunc.Text);
 
             double[] Y0 = new double[valuePanel.Controls.Count];
 
@@ -60,21 +61,38 @@ namespace DiffApp
             }
 
             RK4.SetInit(Convert.ToDouble(textBoxA.Text), Y0);
+            RK4_doublepenetration.SetInit(Convert.ToDouble(textBoxA.Text), Y0);
+
             List<ResultRow> results = new List<ResultRow>();
+            List<ResultRow> results_doublepenetration = new List<ResultRow>();
+
             while (RK4.GetCurrent() < Convert.ToDouble(textBoxB.Text)) // решаем до 10
             {
-                Console.WriteLine("X = {0:F5}; Y = {1:F8}; ", RK4.GetCurrent(), RK4.Y[0]); // вывести t, y, y'    
+                //Console.WriteLine("X = {0:F5}; Y = {1:F8}; ", RK4.GetCurrent(), RK4.Y[0]); // вывести t, y, y'    
                 results.Add(new ResultRow(RK4.GetCurrent(), RK4.Y));
 
                 RK4.NextStep(Convert.ToDouble(textBoxH.Text)); // расчитать на следующем шаге, шаг интегрирования dt=0.01                
             }
-            Form result = new ResultForm(ref results);            
+            int stepcount = Convert.ToInt32((Convert.ToDouble(textBoxB.Text) - Convert.ToDouble(textBoxA.Text)) / Convert.ToDouble(textBoxH.Text));
+            //while (RK4_doublepenetration.GetCurrent() < Convert.ToDouble(textBoxB.Text)) // решаем до 10
+            for (int i = 0; i < stepcount*2; i++)
+            {
+                //Console.WriteLine("X = {0:F5}; Y = {1:F8}; ", RK4.GetCurrent(), RK4.Y[0]); // вывести t, y, y'    
+                results_doublepenetration.Add(new ResultRow(RK4_doublepenetration.GetCurrent(), RK4_doublepenetration.Y));
+
+                RK4_doublepenetration.NextStep(Convert.ToDouble(textBoxH.Text) / 2.0);
+                RK4_doublepenetration.NextStep(Convert.ToDouble(textBoxH.Text) / 2.0);// расчитать на следующем шаге, шаг интегрирования dt=0.01                
+            }
+
+
+
+            Form result = new ResultForm(ref results, ref results_doublepenetration);
             result.ShowDialog();
             Console.ReadLine();
         }
-        
+
     }
-    
+
 
     public class TMyRK : TRungeKutta
     {
@@ -98,7 +116,7 @@ namespace DiffApp
                 FY[i] = Y[count - 1];
                 count--;
             }
-            FY[Y.Length-1] = oParser.Parse(func); ;
+            FY[Y.Length - 1] = oParser.Parse(func); ;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace DiffApp
         public double[] Y { get; set; }
         public string[] toStringArray()
         {
-            string[] s = new string[Y.Length + 1];
+            string[] s = new string[Y.Length + 2];
             s[0] = X.ToString();
             for (int i = 0; i < Y.Length; i++)
             {

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.resultDataGridView = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.resultDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,11 +44,24 @@
             this.resultDataGridView.Size = new System.Drawing.Size(220, 250);
             this.resultDataGridView.TabIndex = 0;
             // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(251, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 262);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Gr";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ResultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.resultDataGridView);
             this.Name = "ResultForm";
             this.Text = "ResultForm";
@@ -60,6 +74,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView resultDataGridView;
+        private System.Windows.Forms.Button button1;
 
     }
 }
