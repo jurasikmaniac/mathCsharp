@@ -22,7 +22,7 @@ namespace DiffApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            //asd
             valuePanel.Controls.Add(new ValueY("y" + Convert.ToString(valuePanel.Controls.Count)));
         }
 
