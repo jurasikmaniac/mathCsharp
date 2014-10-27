@@ -47,7 +47,7 @@ namespace Integration
             {
                 n *= 2;
                 rae = RectangleRunge(Func, a, b, n);
-                //if (rae.error >= prevError)
+                //if (rae.error > prevError)
                 //{
                 //    return new ResultAndError(Double.NaN,Double.NaN);
                 //}
@@ -110,17 +110,17 @@ namespace Integration
             h = (b - a) / n; //Шаг сетки
             result = 0;
 
-            for (i = 1; i < n; i++)
-            {
-                result += Function(a + h * i - h / 2, func); //Вычисляем в средней точке и добавляем в сумму
-            }
-            //Parallel.For<double>(1, n-1, () => 0.0, (j, loop, subtotal) =>
+            //for (i = 1; i < n; i++)
             //{
-            //    subtotal += Function(a + h * j - h / 2, func);
-            //    return subtotal;
-            //},
-            //(x) => Add(ref result, x)
-            //);
+            //    result += Function(a + h * i - h / 2, func); //Вычисляем в средней точке и добавляем в сумму
+            //}
+            Parallel.For<double>(1, n, () => 0.0, (j, loop, subtotal) =>
+            {
+                subtotal += Function(a + h * j - h / 2, func);
+                return subtotal;
+            },
+            (x) => Add(ref result, x)
+            );
             
             result *= h;
 
