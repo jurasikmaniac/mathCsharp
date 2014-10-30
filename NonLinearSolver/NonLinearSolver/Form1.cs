@@ -14,77 +14,45 @@ namespace NonLinearSolver
 {
     public partial class MainForm : Form
     {
+        PointPairList list = new PointPairList();
+        PointPairList listRoot = new PointPairList();
+        GraphPane pane;
+
         public MainForm()
         {
             InitializeComponent();
+            pane = zGC1.GraphPane;
         }
 
         private void resultButton_Click(object sender, EventArgs e)
         {
-            ExpressionParser parser = new ExpressionParser();
-
-            // Create value instances
-            DoubleValue xval = new DoubleValue();
-
-            // Add values for variables x and y
-            parser.Values.Add("x", xval);
-
-            // Создадим список точек
-            PointPairList list = new PointPairList();
-            double xmin = 0.0;
-            double xmax = 0.0;
-            double step = 0.1;
-            try
-            {
-                xmin = Convert.ToDouble(valueA.Text);
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Unable to convert A to a Double.");                
-            }
-            catch (OverflowException)
-            {
-                MessageBox.Show("'A' is outside the range of a Double.");                
-            }
-
-            try
-            {
-                xmax = Convert.ToDouble(valueB.Text);
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Unable to convert B to a Double.");
-            }
-            catch (OverflowException)
-            {
-                MessageBox.Show("'B' is outside the range of a Double.");
-            }
+            updatePoints();
+            DrawGraph();
+            DrawGraphRoot();
             
-            try
-            {
-                step = Convert.ToDouble(textBox5.Text);
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Unable to convert to a Double.");
-            }
-            catch (OverflowException)
-            {
-                MessageBox.Show("is outside the range of a Double.");
-            }
+            
+        }
 
-            string function = FunctionText.Text;
-            if (function == "") function = "x";
-            // Заполняем список точек
+        private void updatePoints()
+        {
+            Function f = new Function(FunctionText.Text);
+           
+           
             list.Clear();
-            for (double x = xmin; x <= xmax; x += step)
+            double step = (pane.XAxis.Scale.Max - pane.XAxis.Scale.Min) / 500;
+            for (double i = pane.XAxis.Scale.Min; i < pane.XAxis.Scale.Max; i += step)
             {
-                // добавим в список точку
-                xval.Value = x; // Update value of "x"
-                list.Add(x, parser.Parse(function));
-
+                //newtonPoints.Add(i, Interpolator.NewtonInterpolator(i, inputPoints));
+                list.Add(i, f.getValueInX(i));
             }
-            DrawGraph(list);
+        }
+
+        private void zedGraph_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
+        {            
+            updatePoints();
+            DrawGraph();
+            DrawGraphRoot();
+            
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -106,19 +74,18 @@ namespace NonLinearSolver
         /// Рисовать график
         /// </summary>
         /// <param name="list">Массив точек</param>
-        private void DrawGraph(PointPairList list)
+        private void DrawGraph()
         {
             // Получим панель для рисования
-            GraphPane pane = zGC1.GraphPane;
-
+          
             // Очистим список кривых на тот случай, если до этого сигналы уже были нарисованы
             pane.CurveList.Clear();
 
             // Создадим кривую с названием "Sinc", 
             // которая будет рисоваться голубым цветом (Color.Blue),
             // Опорные точки выделяться не будут (SymbolType.None)
-            LineItem myCurve = pane.AddCurve(FunctionText.Text, list, Color.Blue, SymbolType.Circle);
-            pane.Title.Text = "График на отрезке " + valueA.Text + ":" + valueB.Text;
+            LineItem myCurve = pane.AddCurve(FunctionText.Text, list, Color.Blue, SymbolType.None);
+            pane.Title.Text = "График";
 
             //myCurve.Line.IsVisible =true;
             //// !!!
@@ -196,45 +163,43 @@ namespace NonLinearSolver
             }
         }
 
+       
         private void button1_Click(object sender, EventArgs e)
         {
-            ExpressionParser parser = new ExpressionParser();
-            PointPairList list = new PointPairList();
-             string function = FunctionText.Text;         
-            DoubleValue xval = new DoubleValue();
+            
 
-            // Add values for variables x
-            parser.Values.Add("x", xval);
+        }
+        private void DrawGraphRoot()
+        {
+            Function f = new Function(FunctionText.Text);        
+            
            
-            if (function == "") function = "x";
+          
             // Заполняем список точек
-            list.Clear();
+            listRoot.Clear();
+            double x = 0D;
                  // добавим в список точку
             try
             {
-                xval.Value = Convert.ToDouble(textBox4.Text); ; // Update value of "x"
+                x = Convert.ToDouble(textBox4.Text); ; // Update value of "x"
             }
             catch (FormatException)
             {
-                MessageBox.Show("Расчитайте корень");
+                
             }
             
-            list.Add(xval.Value, parser.Parse(function));
+            listRoot.Add(x, f.getValueInX(x));
 
             
-            DrawGraphRoot(list);
-
-        }
-        private void DrawGraphRoot(PointPairList list)
-        {
+     
             // Получим панель для рисования
             GraphPane pane = zGC1.GraphPane;                
 
             // Создадим кривую с названием "Sinc", 
             // которая будет рисоваться голубым цветом (Color.Blue),
             // Опорные точки выделяться не будут (SymbolType.None)
-            LineItem myCurve = pane.AddCurve(textBox4.Text, list, Color.Red, SymbolType.Triangle);
-            pane.Title.Text = "График на отрезке " + valueA.Text + ":" + valueB.Text;
+            LineItem myCurve = pane.AddCurve(textBox4.Text, listRoot, Color.Red, SymbolType.Triangle);
+            pane.Title.Text = "График";
 
             //myCurve.Line.IsVisible =true;
             //// !!!

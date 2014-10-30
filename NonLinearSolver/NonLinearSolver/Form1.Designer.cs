@@ -33,10 +33,6 @@
             this.FunctionText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.zGC1 = new ZedGraph.ZedGraphControl();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.valueA = new System.Windows.Forms.TextBox();
-            this.valueB = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.buttonBi = new System.Windows.Forms.Button();
             this.buttonHord = new System.Windows.Forms.Button();
@@ -50,8 +46,6 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // resultButton
@@ -97,44 +91,7 @@
             this.zGC1.ScrollMinY2 = 0D;
             this.zGC1.Size = new System.Drawing.Size(619, 341);
             this.zGC1.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(185, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "начало отрезка - a";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(190, 97);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "конец отрезка - b";
-            // 
-            // valueA
-            // 
-            this.valueA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.valueA.Location = new System.Drawing.Point(174, 75);
-            this.valueA.Name = "valueA";
-            this.valueA.Size = new System.Drawing.Size(112, 20);
-            this.valueA.TabIndex = 9;
-            this.valueA.Text = "-100";
-            this.valueA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // valueB
-            // 
-            this.valueB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.valueB.Location = new System.Drawing.Point(174, 113);
-            this.valueB.Name = "valueB";
-            this.valueB.Size = new System.Drawing.Size(112, 20);
-            this.valueB.TabIndex = 9;
-            this.valueB.Text = "100";
-            this.valueB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.zGC1.ZoomEvent += new ZedGraph.ZedGraphControl.ZoomEventHandler(this.zedGraph_ZoomEvent);
             // 
             // buttonBi
             // 
@@ -250,6 +207,7 @@
             // 
             // button2
             // 
+            this.button2.Enabled = false;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(353, 138);
             this.button2.Name = "button2";
@@ -259,32 +217,11 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // textBox5
-            // 
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.Location = new System.Drawing.Point(174, 158);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(112, 20);
-            this.textBox5.TabIndex = 23;
-            this.textBox5.Text = "0,01";
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(190, 142);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 13);
-            this.label6.TabIndex = 24;
-            this.label6.Text = "Шаг построения";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(655, 537);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox4);
@@ -297,10 +234,6 @@
             this.Controls.Add(this.buttonNewton);
             this.Controls.Add(this.buttonHord);
             this.Controls.Add(this.buttonBi);
-            this.Controls.Add(this.valueB);
-            this.Controls.Add(this.valueA);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.zGC1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.FunctionText);
@@ -321,10 +254,6 @@
         private System.Windows.Forms.TextBox FunctionText;
         private System.Windows.Forms.Label label1;
         private ZedGraph.ZedGraphControl zGC1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox valueA;
-        private System.Windows.Forms.TextBox valueB;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button buttonBi;
         private System.Windows.Forms.Button buttonHord;
@@ -337,9 +266,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label label6;        
+        private System.Windows.Forms.Button button2;        
     }
 }
 
