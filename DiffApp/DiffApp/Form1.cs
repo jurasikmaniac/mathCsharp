@@ -60,15 +60,15 @@ namespace DiffApp
                 return;
             }
 
-            RK4.SetInit(Convert.ToDouble(textBoxA.Text), Y0);
-            RK4_doublepenetration.SetInit(Convert.ToDouble(textBoxA.Text), Y0);
+            RK4.SetInit(Convert.ToDouble(textBoxX0.Text), Y0);
+            RK4_doublepenetration.SetInit(Convert.ToDouble(textBoxX0.Text), Y0);
 
             List<ResultRow> results = new List<ResultRow>();
             List<ResultRow> results_doublepenetration = new List<ResultRow>();
 
             while (RK4.GetCurrent() < Convert.ToDouble(textBoxB.Text)) // решаем до 10
             {
-                //Console.WriteLine("X = {0:F5}; Y = {1:F8}; ", RK4.GetCurrent(), RK4.Y[0]); // вывести t, y, y'    
+                //Console.WriteLine("X = {0:F5}; Y = {1:F8}; ", RK4.GetCurrent(), RK4.Y[3]); // вывести t, y, y'    
                 results.Add(new ResultRow(RK4.GetCurrent(), RK4.Y));
 
                 RK4.NextStep(Convert.ToDouble(textBoxH.Text)); // расчитать на следующем шаге, шаг интегрирования dt=0.01                
@@ -111,9 +111,9 @@ namespace DiffApp
             }
 
             int count = Y.Length;
-            for (int i = 0; i < Y.Length; i++)
+            for (int i = 0; i < Y.Length-1; i++)
             {
-                FY[i] = Y[count - 1];
+                FY[i] = Y[i+1];
                 count--;
             }
             FY[Y.Length - 1] = oParser.Parse(func); ;
